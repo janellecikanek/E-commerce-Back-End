@@ -56,8 +56,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-
-Product.create(req.body)
+router.post('/', (req, res) => {
+  Product.create(req.body)
   .then((product) => {
     // if there's product tags, we need to create pairings to bulk create in the ProductTag model
     if (req.body.tagIds.length) {
@@ -77,6 +77,8 @@ Product.create(req.body)
     console.log(err);
     res.status(400).json(err);
   });
+})
+
 
 // update product
 router.put('/:id', (req, res) => {
@@ -120,7 +122,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+
   // delete one product by its `id` value
   router.delete('/:id', async (req, res) => {
     try {
@@ -140,6 +142,6 @@ router.delete('/:id', (req, res) => {
       res.status(500).json(err);
     }
   });
-});
+
 
 module.exports = router;
